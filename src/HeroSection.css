@@ -35,10 +35,12 @@
   line-height: 1.2;
 }
 
-/* Mobile specific background */
+/* Mobile-specific background */
 @media (max-width: 768px) {
   .hero-container {
     background-image: url('./pups_mobile.jpg');
-    background-position: top center; /* adjust if needed */
+    background-size: cover; /* fills container completely */
+    background-position: center top; /* adjust so important part is visible */
+    background-attachment: scroll; /* fixed doesn’t work well on mobile */
   }
 }
