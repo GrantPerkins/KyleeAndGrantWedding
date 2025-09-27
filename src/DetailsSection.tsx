@@ -116,8 +116,6 @@ END:VCALENDAR
                     {names},<br/><br/> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
                 </p>
 
-                <h3 style={styles.sectionHeading}>Wedding Details</h3>
-
                 <p style={styles.text}><b>Date:</b> April 11, 2026</p>
                 <p style={styles.text}>
                     <b>Location:</b>{" "}
