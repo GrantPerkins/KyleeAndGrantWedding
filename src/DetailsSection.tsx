@@ -136,7 +136,7 @@ END:VCALENDAR
                 <a
                     href={createICSFile()}
                     download="Kylee_Grant_Wedding.ics"
-                    style={{ ...styles.button, marginTop: "1rem", backgroundColor: "#4d7b7b" }}
+                    style={{ ...styles.button, marginTop: "1rem",}}
                 >
                     Add to Calendar
                 </a>
