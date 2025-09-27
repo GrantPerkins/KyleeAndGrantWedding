@@ -72,7 +72,7 @@ const DetailsSection: React.FC = () => {
     <section ref={ref} style={styles.container}>
       <div style={styles.card}>
         <h2 style={styles.heading}>Wedding Details</h2>
-        <p style={styles.text}><b>Date: </b>April, 2026</p>
+        <p style={styles.text}><b>Date: </b>April 11, 2026</p>
         <p style={styles.text}><b>Location: </b>The Grand Garden, Sturbridge, Massachusetts</p>
         <p style={styles.text}><b>Time: </b>5:00 PM Ceremony, Reception to Follow</p>
         <p style={styles.text}><b>Dress Code: </b>Casual Attire (aka ties optional, just look nice)</p>
