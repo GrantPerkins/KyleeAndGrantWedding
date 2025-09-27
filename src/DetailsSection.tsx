@@ -89,7 +89,7 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne }) => {
         <p style={styles.text}><b>Date: </b>April 11, 2026</p>
         <p style={styles.text}><b>Location: </b><a href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566/@42.1132172,-72.1806702,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x89e6a3064f54c15d:0xf8bf829cb0421a36!2m2!1d-72.0982694!2d42.1132467?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D">The Barn at Wight Farm, Sturbridge, MA</a></p>
         <p style={styles.text}><b>Time: </b>5:00 PM Ceremony, Reception to Follow</p>
-        <p style={styles.text}><b>Dress Code: </b>Casual (aka ties optional, just look nice)</p>
+        <p style={styles.text}><b>Dress Code: </b>Cocktail Attire (aka ties optional, just look nice)</p>
 
         {/* RSVP Button */}
         <a

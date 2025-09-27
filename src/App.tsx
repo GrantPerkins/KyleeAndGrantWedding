@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./HomePage";
 import InvitationPage from "./InvitationPage";
 
@@ -10,7 +10,7 @@ const App: React.FC = () => {
     padding: 0,
   };
 
-  return (  
+  return (
     <div style={styles}>
       <Router>
         <Routes>
