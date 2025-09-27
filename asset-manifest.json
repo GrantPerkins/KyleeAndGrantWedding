@@ -1,16 +1,17 @@
 {
   "files": {
-    "main.css": "/KyleeAndGrantWedding/static/css/main.e6c13ad2.css",
-    "main.js": "/KyleeAndGrantWedding/static/js/main.7e8f6771.js",
+    "main.css": "/KyleeAndGrantWedding/static/css/main.5fc690e8.css",
+    "main.js": "/KyleeAndGrantWedding/static/js/main.21385350.js",
     "static/js/453.f5ba16de.chunk.js": "/KyleeAndGrantWedding/static/js/453.f5ba16de.chunk.js",
     "static/media/pups.jpg": "/KyleeAndGrantWedding/static/media/pups.8472ce52555d89d7678e.jpg",
+    "static/media/pups_mobile.jpg": "/KyleeAndGrantWedding/static/media/pups_mobile.9cbe3702785775c0f524.jpg",
     "index.html": "/KyleeAndGrantWedding/index.html",
-    "main.e6c13ad2.css.map": "/KyleeAndGrantWedding/static/css/main.e6c13ad2.css.map",
-    "main.7e8f6771.js.map": "/KyleeAndGrantWedding/static/js/main.7e8f6771.js.map",
+    "main.5fc690e8.css.map": "/KyleeAndGrantWedding/static/css/main.5fc690e8.css.map",
+    "main.21385350.js.map": "/KyleeAndGrantWedding/static/js/main.21385350.js.map",
     "453.f5ba16de.chunk.js.map": "/KyleeAndGrantWedding/static/js/453.f5ba16de.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e6c13ad2.css",
-    "static/js/main.7e8f6771.js"
+    "static/css/main.5fc690e8.css",
+    "static/js/main.21385350.js"
   ]
 }
