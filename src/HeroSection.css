@@ -1,0 +1,44 @@
+.hero-container {
+  height: 100vh;
+  background-image: url('./pups.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.hero-text-wrapper {
+  margin-top: 21vh;
+  z-index: 2;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+.hero-text {
+  font-size: clamp(2rem, 8vw, 6rem);
+  font-weight: bold;
+  color: white;
+  line-height: 1.2;
+}
+
+/* Mobile specific background */
+@media (max-width: 768px) {
+  .hero-container {
+    background-image: url('./pups_mobile.jpg');
+    background-position: top center; /* adjust if needed */
+  }
+}
