@@ -7,6 +7,9 @@ import DetailsSection from "./DetailsSection";
 const InvitationPage: React.FC = () => {
   const { uuid } = useParams<{ uuid: string }>();
   const invitation = invitations.find((i) => i.uuid === uuid);
+  console.log("UUID param:", uuid);
+  console.log("Invitations loaded:", invitations);
+    
 
   if (!invitation) {
     return (
@@ -17,10 +20,12 @@ const InvitationPage: React.FC = () => {
   }
 
   return (
+    
     <div>
       <HeroSection />
       <DetailsSection names={invitation.names} plusOne={invitation.plusOne} />
     </div>
+    
   );
 };
 
