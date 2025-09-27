@@ -127,6 +127,7 @@ END:VCALENDAR
                 </p>
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
                 <p style={styles.text}><b>Dress Code:</b> Cocktail Attire</p>
+                <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
 
                 {/* RSVP Button */}
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
