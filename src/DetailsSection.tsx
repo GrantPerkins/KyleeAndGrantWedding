@@ -113,7 +113,7 @@ END:VCALENDAR
         <section ref={ref} style={styles.container}>
             <div style={styles.card}>
                 <p style={styles.greeting}>
-                    {names}, we {plusOne ? "would love for you and your guest" : "would love for you"} to come to the wedding of Kylee Rutkiewicz and Grant Perkins.
+                    {names}, Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
                 </p>
 
                 <h3 style={styles.sectionHeading}>Wedding Details</h3>
@@ -126,7 +126,7 @@ END:VCALENDAR
                     </a>
                 </p>
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
-                <p style={styles.text}><b>Dress Code:</b> Cocktail Attire (aka ties optional, just look nice)</p>
+                <p style={styles.text}><b>Dress Code:</b> Cocktail Attire</p>
 
                 {/* RSVP Button */}
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
