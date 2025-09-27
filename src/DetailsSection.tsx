@@ -113,7 +113,7 @@ END:VCALENDAR
         <section ref={ref} style={styles.container}>
             <div style={styles.card}>
                 <p style={styles.greeting}>
-                    {names}, Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
+                    {names},<br/> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
                 </p>
 
                 <h3 style={styles.sectionHeading}>Wedding Details</h3>
