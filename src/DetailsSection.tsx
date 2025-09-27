@@ -60,7 +60,7 @@ END:VCALENDAR
         }
 
         // Open SMS app with pre-filled message
-        const phoneNumber = "+7742758907"; // dummy number
+        const phoneNumber = "+17742758907"; // dummy number
         const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
         window.location.href = smsLink;
     };
