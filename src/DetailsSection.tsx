@@ -13,6 +13,34 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [attending, setAttending] = useState<string | null>(null);
     const [bringingPlusOne, setBringingPlusOne] = useState<string | null>(null);
+    const createICSFile = () => {
+        const startDate = "20260411T170000"; // 5:00 PM ET
+        const endDate = "20260411T210000";   // 9:00 PM ET
+        const title = "Wedding of Kylee Rutkiewicz and Grant Perkins";
+        const location = "The Barn at Wight Farm, 420 Main St, Sturbridge, MA 01566";
+        const description = "Join us for the wedding ceremony and reception!";
+
+        const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kylee & Grant Wedding//EN
+BEGIN:VEVENT
+UID:unique-id-12345@example.com
+DTSTAMP:${startDate}Z
+DTSTART:${startDate}Z
+DTEND:${endDate}Z
+SUMMARY:${title}
+LOCATION:${location}
+DESCRIPTION:${description}
+END:VEVENT
+END:VCALENDAR
+`.trim();
+
+        // Create a Blob and return a URL for download
+        const blob = new Blob([icsContent], { type: "text/calendar" });
+        return URL.createObjectURL(blob);
+    };
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -104,6 +132,15 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne }) => {
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
                     RSVP Now
                 </button>
+                {/* Add to Calendar Button */}
+                <a
+                    href={createICSFile()}
+                    download="Kylee_Grant_Wedding.ics"
+                    style={{ ...styles.button, marginTop: "1rem", backgroundColor: "#4d7b7b" }}
+                >
+                    Add to Calendar
+                </a>
+
             </div>
 
             {/* RSVP Modal */}
