@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import HeroSection from "./HeroSection";
+import DetailsSection from "./DetailsSection";
 
-function App() {
+const App: React.FC = () => {
+  const styles = {
+    fontFamily: "'Quicksand', sans-serif", // ✅ friendly font for whole site
+    margin: 0,
+    padding: 0,
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={styles}>
+      <HeroSection />
+      <DetailsSection />
     </div>
   );
-}
+};
 
 export default App;
