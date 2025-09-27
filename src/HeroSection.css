@@ -18,7 +18,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0,0,0,0);
 }
 
 .hero-text-wrapper {
@@ -35,12 +35,22 @@
   line-height: 1.2;
 }
 
-/* Mobile-specific background */
+/* Mobile-specific styles */
 @media (max-width: 768px) {
   .hero-container {
+    background-color: #3e6161; /* fallback background */
     background-image: url('./pups_mobile.jpg');
-    background-size: cover; /* fills container completely */
-    background-position: center top; /* adjust so important part is visible */
-    background-attachment: scroll; /* fixed doesn’t work well on mobile */
+    background-size: 100% auto; /* full width */
+    background-position: center; /* center vertically */
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+  }
+
+  .hero-overlay {
+    display: none; /* remove dark overlay on mobile */
+  }
+
+  .hero-text-wrapper {
+    margin-top: 5vh; /* move text near the top */
   }
 }
