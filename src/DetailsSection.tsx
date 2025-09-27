@@ -1,7 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import couple from "./couple3.jpg";
 
-const DetailsSection: React.FC = () => {
+interface DetailsSectionProps {
+  names: string;
+  plusOne: boolean;
+}
+
+const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -25,24 +29,25 @@ const DetailsSection: React.FC = () => {
       justifyContent: "center",
       alignItems: "center",
       padding: "4rem 2rem",
-      backgroundColor: "#3e6161", // ✅ updated background color
-    //   backgroundImage: `url(${couple})`,
+      backgroundColor: "#3e6161",
     },
     card: {
       opacity: visible ? 1 : 0,
       transform: visible ? "translateY(0)" : "translateY(50px)",
       transition: "all 0.8s ease-out",
       backgroundColor: "rgba(255,255,255,0.95)",
-      padding: "2.5rem 3.5rem",
+      padding: "2.5rem 2rem",
       borderRadius: "20px",
       boxShadow: "0 8px 20px rgba(0,0,0,0.25)",
-      maxWidth: "700px",
+      width: "100%",
+      maxWidth: "800px",
       textAlign: "center" as const,
     },
-    heading: {
-      fontSize: "2.2rem",
-      marginBottom: "1.5rem",
+    greeting: {
+      fontSize: "1.6rem",
+      marginBottom: "2rem",
       color: "#3e6161",
+      lineHeight: 1.4,
     },
     text: {
       fontSize: "1.2rem",
@@ -71,11 +76,20 @@ const DetailsSection: React.FC = () => {
   return (
     <section ref={ref} style={styles.container}>
       <div style={styles.card}>
-        <h2 style={styles.heading}>Wedding Details</h2>
+        {/* Personalized Greeting */}
+        <p style={styles.text}>
+          {names}, we {plusOne ? "would love for you and your guest" : "would love for you"}{" "}
+          to come to the wedding of Kylee Rutkiewicz and Grant Perkins.
+        </p>
+        <h2 style={styles.greeting}>
+          Wedding Details:
+        </h2>
+
+        {/* Static Details */}
         <p style={styles.text}><b>Date: </b>April 11, 2026</p>
-        <p style={styles.text}><b>Location: </b>The Grand Garden, Sturbridge, Massachusetts</p>
+        <p style={styles.text}><b>Location: </b><a href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566/@42.1132172,-72.1806702,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x89e6a3064f54c15d:0xf8bf829cb0421a36!2m2!1d-72.0982694!2d42.1132467?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D">The Barn at Wight Farm, Sturbridge, MA</a></p>
         <p style={styles.text}><b>Time: </b>5:00 PM Ceremony, Reception to Follow</p>
-        <p style={styles.text}><b>Dress Code: </b>Casual Attire (aka ties optional, just look nice)</p>
+        <p style={styles.text}><b>Dress Code: </b>Casual (aka ties optional, just look nice)</p>
 
         {/* RSVP Button */}
         <a
