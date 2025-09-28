@@ -24,12 +24,14 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people 
         }
     }, [attending, people]);
 
+    const url = window.location.href;
+
     const createICSFile = () => {
         const startDate = "20260411T170000"; // 5:00 PM ET
         const endDate = "20260411T210000";   // 9:00 PM ET
         const title = "Wedding of Kylee Rutkiewicz and Grant Perkins";
         const location = "The Barn at Wight Farm, 420 Main St, Sturbridge, MA 01566";
-        const description = "Join us for the wedding ceremony and reception!";
+        const description = `Join us for the wedding ceremony and reception!\n\nInvitation for your reference: ${url}`;
 
         const icsContent = `
 BEGIN:VCALENDAR
@@ -63,7 +65,7 @@ END:VCALENDAR
     }, []);
 
     const handleRSVPSubmit = () => {
-        let message = `RSVP for Kylee and Grant's Wedding\n${names}:\nAttending: ${attending}`;
+        let message = `RSVP for Kylee and Grant's Wedding:\nAttending: ${attending}`;
 
         if (attending === "yes" && people.length > 1) {
             message += `\nPeople Attending: ${peopleAttending.join(", ")}`;
@@ -72,6 +74,7 @@ END:VCALENDAR
         if (attending === "yes" && plusOne) {
             message += `\nBringing a plus one: ${bringingPlusOne}`;
         }
+        message += `\nInvitation: ${url}`
 
         const phoneNumber = "+17742758907"; // dummy number
         const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
