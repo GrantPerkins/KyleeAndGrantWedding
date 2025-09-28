@@ -137,7 +137,7 @@ END:VCALENDAR
 
                 {/* RSVP Button */}
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
-                    RSVP Now
+                    RSVP
                 </button>
 
                 {/* Add to Calendar Button */}
