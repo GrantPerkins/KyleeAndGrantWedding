@@ -132,7 +132,7 @@ END:VCALENDAR
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
-                <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Buffet Reception to Follow</p>
+                <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony<br/>Buffet Reception to Follow</p>
                 <p style={styles.text}><b>Dress Code:</b> Cocktail Attire</p>
 
                 {/* RSVP Button */}
@@ -207,7 +207,7 @@ END:VCALENDAR
                             disabled={attending === null || (attending === "yes" && ((plusOne && bringingPlusOne === null) || peopleAttending.length === 0))}
                             onClick={handleRSVPSubmit}
                         >
-                            Submit
+                            Next
                         </button>
 
                         <button
