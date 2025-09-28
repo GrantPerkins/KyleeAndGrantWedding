@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 interface DetailsSectionProps {
     names: string;
     plusOne: boolean;
-    people: string[]; // New: list of people invited
+    people: string[];
 }
 
 const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people }) => {
@@ -17,8 +17,10 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people 
     const [peopleAttending, setPeopleAttending] = useState<string[]>([]);
 
     useEffect(() => {
-        if (attending === "yes") {
+        if (attending === "yes" && people.length > 1) {
             setPeopleAttending([...people]); // default all selected
+        } else if (people.length === 1) {
+            setPeopleAttending([]);
         }
     }, [attending, people]);
 
@@ -63,11 +65,12 @@ END:VCALENDAR
     const handleRSVPSubmit = () => {
         let message = `RSVP for Kylee and Grant's Wedding\n${names}:\nAttending: ${attending}`;
 
-        if (attending === "yes") {
+        if (attending === "yes" && people.length > 1) {
             message += `\nPeople Attending: ${peopleAttending.join(", ")}`;
-            if (plusOne) {
-                message += `\nBringing a plus one: ${bringingPlusOne}`;
-            }
+        }
+
+        if (attending === "yes" && plusOne) {
+            message += `\nBringing a plus one: ${bringingPlusOne}`;
         }
 
         const phoneNumber = "+17742758907"; // dummy number
@@ -122,7 +125,7 @@ END:VCALENDAR
         <section ref={ref} style={styles.container}>
             <div style={styles.card}>
                 <p style={styles.greeting}>
-                    {names},<br /><br /> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
+                    {names},<br/><br/> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
                 </p>
 
                 <p style={styles.text}><b>Date:</b> April 11, 2026</p>
@@ -132,19 +135,18 @@ END:VCALENDAR
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
-                <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony<br/>Buffet Reception to Follow</p>
+                <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
                 <p style={styles.text}><b>Dress Code:</b> Cocktail Attire</p>
+                <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
 
-                {/* RSVP Button */}
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
-                    RSVP
+                    RSVP Now
                 </button>
 
-                {/* Add to Calendar Button */}
                 <a
                     href={createICSFile()}
                     download="Kylee_Grant_Wedding.ics"
-                    style={{ ...styles.button, marginTop: "1rem" }}
+                    style={{ ...styles.button, marginTop: "1rem"}}
                 >
                     Add to Calendar
                 </a>
@@ -154,7 +156,10 @@ END:VCALENDAR
             {isModalOpen && (
                 <div style={styles.modalOverlay}>
                     <div style={styles.modalContent}>
-                        <h3 style={styles.modalHeading}>Will you be attending?</h3>
+                        <h3 style={styles.modalHeading}>
+                            {people.length === 1 ? "Will you be attending?" : "Will any of you be attending?"}
+                        </h3>
+
                         <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                             {["yes", "no"].map((option) => (
                                 <button
@@ -176,8 +181,8 @@ END:VCALENDAR
                             ))}
                         </div>
 
-                        {/* Plus-one question */}
-                        {attending === "yes" && (
+                        {/* Per-person checkbox selection if more than 1 person */}
+                        {attending === "yes" && people.length > 1 && (
                             <>
                                 <h3 style={styles.modalHeading}>Who will be attending?</h3>
                                 <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.5rem", maxHeight: "200px", overflowY: "auto", margin: "0 auto" }}>
@@ -201,10 +206,30 @@ END:VCALENDAR
                             </>
                         )}
 
+                        {/* Plus-one question */}
+                        {attending === "yes" && plusOne && (
+                            <>
+                                <h3 style={styles.modalHeading}>Will you be bringing a plus one?</h3>
+                                <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+                                    {["yes", "no"].map((option) => (
+                                        <button
+                                            key={option}
+                                            style={{
+                                                ...styles.optionButton,
+                                                ...(bringingPlusOne === option ? styles.optionButtonSelected : {}),
+                                            }}
+                                            onClick={() => setBringingPlusOne(option)}
+                                        >
+                                            {option.charAt(0).toUpperCase() + option.slice(1)}
+                                        </button>
+                                    ))}
+                                </div>
+                            </>
+                        )}
 
                         <button
                             style={{ ...styles.button, marginTop: "1.5rem" }}
-                            disabled={attending === null || (attending === "yes" && ((plusOne && bringingPlusOne === null) || peopleAttending.length === 0))}
+                            disabled={attending === null || (attending === "yes" && plusOne && bringingPlusOne === null)}
                             onClick={handleRSVPSubmit}
                         >
                             Next
