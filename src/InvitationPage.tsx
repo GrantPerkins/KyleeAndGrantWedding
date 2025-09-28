@@ -23,7 +23,7 @@ const InvitationPage: React.FC = () => {
     
     <div>
       <HeroSection />
-      <DetailsSection names={invitation.names} plusOne={invitation.plusOne} />
+      <DetailsSection names={invitation.names} plusOne={invitation.plusOne} people={invitation.people} />
     </div>
     
   );

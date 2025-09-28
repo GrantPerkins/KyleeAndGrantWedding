@@ -2,21 +2,25 @@
   {
     "uuid": "5498",
     "names": "Connor West",
+    "people": ["Connor West"],
     "plusOne": true
   },
   {
     "uuid": "5187",
     "names": "Sarah Plutnicki",
+    "people": ["Sarah Plutnicki"],
     "plusOne": true
   },
   {
     "uuid": "8136",
     "names": "Prentis Family",
+    "people": ["tim"],
     "plusOne": false
   },
   {
     "uuid": "2527",
     "names": "Linda and Chris Perkins",
+    "people": ["Linda Perkins", "Chris Perkins"],
     "plusOne": false
   }
 ]

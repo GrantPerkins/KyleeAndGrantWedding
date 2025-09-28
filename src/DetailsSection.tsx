@@ -3,9 +3,10 @@ import React, { useEffect, useRef, useState } from "react";
 interface DetailsSectionProps {
     names: string;
     plusOne: boolean;
+    people: string[]; // New: list of people invited
 }
 
-const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne }) => {
+const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [visible, setVisible] = useState(false);
 
@@ -13,6 +14,14 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [attending, setAttending] = useState<string | null>(null);
     const [bringingPlusOne, setBringingPlusOne] = useState<string | null>(null);
+    const [peopleAttending, setPeopleAttending] = useState<string[]>([]);
+
+    useEffect(() => {
+        if (attending === "yes") {
+            setPeopleAttending([...people]); // default all selected
+        }
+    }, [attending, people]);
+
     const createICSFile = () => {
         const startDate = "20260411T170000"; // 5:00 PM ET
         const endDate = "20260411T210000";   // 9:00 PM ET
@@ -27,8 +36,8 @@ PRODID:-//Kylee & Grant Wedding//EN
 BEGIN:VEVENT
 UID:unique-id-12345@example.com
 DTSTAMP:${startDate}Z
-DTSTART:${startDate}Z
-DTEND:${endDate}Z
+DTSTART;TZID=America/New_York:${startDate}
+DTEND;TZID=America/New_York:${endDate}
 SUMMARY:${title}
 LOCATION:${location}
 DESCRIPTION:${description}
@@ -36,11 +45,9 @@ END:VEVENT
 END:VCALENDAR
 `.trim();
 
-        // Create a Blob and return a URL for download
         const blob = new Blob([icsContent], { type: "text/calendar" });
         return URL.createObjectURL(blob);
     };
-
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -55,11 +62,14 @@ END:VCALENDAR
 
     const handleRSVPSubmit = () => {
         let message = `RSVP for Kylee and Grant's Wedding\n${names}:\nAttending: ${attending}`;
-        if (attending === "yes" && plusOne) {
-            message += `\nBringing a plus one: ${bringingPlusOne}`;
+
+        if (attending === "yes") {
+            message += `\nPeople Attending: ${peopleAttending.join(", ")}`;
+            if (plusOne) {
+                message += `\nBringing a plus one: ${bringingPlusOne}`;
+            }
         }
 
-        // Open SMS app with pre-filled message
         const phoneNumber = "+17742758907"; // dummy number
         const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
         window.location.href = smsLink;
@@ -106,20 +116,19 @@ END:VCALENDAR
             marginBottom: "0.5rem",
             lineHeight: 1.4,
         },
-
     };
 
     return (
         <section ref={ref} style={styles.container}>
             <div style={styles.card}>
                 <p style={styles.greeting}>
-                    {names},<br/><br/> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
+                    {names},<br /><br /> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
                 </p>
 
                 <p style={styles.text}><b>Date:</b> April 11, 2026</p>
                 <p style={styles.text}>
                     <b>Location:</b>{" "}
-                    <a href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566/@42.1132172,-72.1806702,12z/data=!4m8!4m7!1m0!1m5!1m1!1s0x89e6a3064f54c15d:0xf8bf829cb0421a36!2m2!1d-72.0982694!2d42.1132467?entry=ttu&g_ep=EgoyMDI1MDkyNC4wIKXMDSoASAFQAw%3D%3D" style={styles.link} target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566" style={styles.link} target="_blank" rel="noopener noreferrer">
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
@@ -131,15 +140,15 @@ END:VCALENDAR
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
                     RSVP Now
                 </button>
+
                 {/* Add to Calendar Button */}
                 <a
                     href={createICSFile()}
                     download="Kylee_Grant_Wedding.ics"
-                    style={{ ...styles.button, marginTop: "1rem",}}
+                    style={{ ...styles.button, marginTop: "1rem" }}
                 >
                     Add to Calendar
                 </a>
-
             </div>
 
             {/* RSVP Modal */}
@@ -147,7 +156,7 @@ END:VCALENDAR
                 <div style={styles.modalOverlay}>
                     <div style={styles.modalContent}>
                         <h3 style={styles.modalHeading}>Will you be attending?</h3>
-                        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
+                        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
                             {["yes", "no"].map((option) => (
                                 <button
                                     key={option}
@@ -157,7 +166,10 @@ END:VCALENDAR
                                     }}
                                     onClick={() => {
                                         setAttending(option);
-                                        if (option === "no") setBringingPlusOne(null);
+                                        if (option === "no") {
+                                            setBringingPlusOne(null);
+                                            setPeopleAttending([]);
+                                        }
                                     }}
                                 >
                                     {option.charAt(0).toUpperCase() + option.slice(1)}
@@ -165,29 +177,35 @@ END:VCALENDAR
                             ))}
                         </div>
 
-                        {attending === "yes" && plusOne && (
+                        {/* Plus-one question */}
+                        {attending === "yes" && (
                             <>
-                                <h3 style={styles.modalHeading}>Will you be bringing a plus one?</h3>
-                                <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
-                                    {["yes", "no"].map((option) => (
-                                        <button
-                                            key={option}
-                                            style={{
-                                                ...styles.optionButton,
-                                                ...(bringingPlusOne === option ? styles.optionButtonSelected : {}),
-                                            }}
-                                            onClick={() => setBringingPlusOne(option)}
-                                        >
-                                            {option.charAt(0).toUpperCase() + option.slice(1)}
-                                        </button>
+                                <h3 style={styles.modalHeading}>Who will be attending?</h3>
+                                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.5rem", maxHeight: "200px", overflowY: "auto", margin: "0 auto" }}>
+                                    {people.map((person) => (
+                                        <label key={person} style={{ fontSize: "1rem", display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={peopleAttending.includes(person)}
+                                                onChange={() => {
+                                                    if (peopleAttending.includes(person)) {
+                                                        setPeopleAttending(peopleAttending.filter((p) => p !== person));
+                                                    } else {
+                                                        setPeopleAttending([...peopleAttending, person]);
+                                                    }
+                                                }}
+                                            />
+                                            {person}
+                                        </label>
                                     ))}
                                 </div>
                             </>
                         )}
 
+
                         <button
                             style={{ ...styles.button, marginTop: "1.5rem" }}
-                            disabled={attending === null || (attending === "yes" && plusOne && bringingPlusOne === null)}
+                            disabled={attending === null || (attending === "yes" && ((plusOne && bringingPlusOne === null) || peopleAttending.length === 0))}
                             onClick={handleRSVPSubmit}
                         >
                             Submit
@@ -202,7 +220,6 @@ END:VCALENDAR
                     </div>
                 </div>
             )}
-
         </section>
     );
 };
