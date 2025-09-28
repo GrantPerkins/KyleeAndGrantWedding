@@ -67,8 +67,8 @@ END:VCALENDAR
     const handleRSVPSubmit = () => {
         let message = `RSVP for Kylee and Grant's Wedding:\nAttending: ${attending}`;
 
-        if (attending === "yes" && people.length > 1) {
-            message += `\nPeople Attending: ${peopleAttending.join(", ")}`;
+        if (attending === "yes") {
+            message += `\Attending: ${peopleAttending.join(", ")}`;
         }
 
         if (attending === "yes" && plusOne) {
