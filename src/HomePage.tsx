@@ -78,7 +78,6 @@ END:VCALENDAR
     link: {
       color: "white",
       textDecoration: "none",
-      fontWeight: "bold",
     },
     button: {
       marginTop: isMobile ? "0.5rem" : "2rem",
