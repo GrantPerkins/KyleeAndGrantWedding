@@ -72,11 +72,12 @@ END:VCALENDAR
       fontWeight: "bold",
     },
     dateLocation: {
-      fontSize: isMobile ? "clamp(1.3rem, 4vw, 2.5rem)" : "clamp(1.2rem, 2vw, 1.5rem)",
+      fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
       fontWeight: "normal",
     },
     link: {
       color: "white",
+      fontSize: "clamp(1.2rem, 2vw, 1.5rem)",
       textDecoration: "none",
     },
     button: {
