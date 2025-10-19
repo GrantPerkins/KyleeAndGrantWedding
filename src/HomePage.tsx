@@ -1,5 +1,6 @@
 import React from "react";
 import tiktok from "./tiktok.jpg";
+import tiktok_mobile from "./tiktok_mobile.jpg"
 
 const HomePage: React.FC = () => {
   const isMobile = window.innerWidth < 768;
@@ -162,7 +163,7 @@ END:VCALENDAR
           </div>
 
           <div style={styles.imageSection}>
-            <img src={tiktok} alt="Kylee and Grant" style={styles.image} />
+            <img src={tiktok_mobile} alt="Kylee and Grant" style={styles.image} />
           </div>
 
           <div style={styles.detailsSection}>
