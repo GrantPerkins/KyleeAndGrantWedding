@@ -38,7 +38,7 @@
 /* Mobile-specific styles */
 @media (max-width: 768px) {
   .hero-container {
-    background-color: #3e6161; /* fallback background */
+    background-color: #3e6146; /* fallback background */
     background-image: url('./pups_mobile.jpg');
     background-size: 100% auto; /* full width */
     background-position: center; /* center vertically */

@@ -15,7 +15,7 @@ const HeroSection: React.FC = () => {
     title: {
       fontSize: "clamp(2rem, 5vw, 4rem)",
       fontWeight: "bold",
-      color: "#3e6161",
+      color: "#3e6146",
       textAlign: "center" as const,
       margin: "2rem 1rem 1rem 1rem",
     },
