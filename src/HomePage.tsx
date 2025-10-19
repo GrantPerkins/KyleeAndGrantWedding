@@ -133,7 +133,7 @@ END:VCALENDAR
         <div style={styles.mobileWrapper}>
           <div style={styles.topText}>
             <h1 style={styles.title}>Save the Date</h1>
-            <p style={styles.subtitle}>Kylee & Grant are getting married!</p>
+            <p style={styles.subtitle}>Kylee Rutkiewicz & Grant Perkins are getting married!</p>
           </div>
 
           <div style={styles.imageSection}>
@@ -148,7 +148,7 @@ END:VCALENDAR
               target="_blank"
               rel="noopener noreferrer"
             >
-              The Barn at Wight Farm
+              Sturbridge, MA
             </a>
             <button
               style={styles.button}
@@ -164,7 +164,7 @@ END:VCALENDAR
         <div style={styles.desktopWrapper}>
           <div style={styles.textSection}>
             <h1 style={styles.title}>Save the Date</h1>
-            <p style={styles.subtitle}>Kylee & Grant are getting married!</p>
+            <p style={styles.subtitle}>Kylee Rutkiewicz & Grant Perkins are getting married!</p>
             <p style={styles.dateLocation}>April 11, 2026</p>
             <p style={styles.dateLocation}>
               <a
@@ -173,7 +173,7 @@ END:VCALENDAR
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                The Barn at Wight Farm, Sturbridge, MA
+                Sturbridge, MA
               </a>
             </p>
             <button
