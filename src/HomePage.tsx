@@ -117,15 +117,40 @@ END:VCALENDAR
     mobileWrapper: {
       display: "flex",
       flexDirection: "column" as const,
-      justifyContent: "space-between",
       alignItems: "center",
       width: "100%",
       height: "100%",
       padding: "1rem 1.5rem",
       boxSizing: "border-box" as const,
       textAlign: "center" as const,
+      overflowY: "scroll" as const,
+      scrollbarWidth: "thin" as const,
+      scrollbarColor: "#888 #3e6146",
     },
+    // Chrome / Safari scrollbar
+    scrollBarStyle: `
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #3e6146;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #888;
+        border-radius: 4px;
+      }
+    `,
   };
+
+  // Inject scrollbar styles
+  React.useEffect(() => {
+    const styleTag = document.createElement("style");
+    styleTag.innerHTML = styles.scrollBarStyle;
+    document.head.appendChild(styleTag);
+    return () => {
+      document.head.removeChild(styleTag);
+    };
+  }, []);
 
   return (
     <section style={styles.container}>
