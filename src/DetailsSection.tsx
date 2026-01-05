@@ -68,7 +68,11 @@ END:VCALENDAR
         let message = `RSVP for Kylee and Grant's Wedding:\nAttending: ${attending}`;
 
         if (attending === "yes") {
-            if (peopleAttending.length > 0) {
+            if (people.length === 1) {
+                // Single-person invite
+                message += `\nAttending Guest: ${people[0]}`;
+            } else if (peopleAttending.length > 0) {
+                // Multi-person invite
                 message += `\nAttending Guests: ${peopleAttending.join(", ")}`;
             }
 
@@ -76,6 +80,7 @@ END:VCALENDAR
                 message += `\nPlus one: ${plusOneName.trim() || "Not bringing a plus one"}`;
             }
         }
+
 
         message += `\nInvitation: ${url}`;
 
