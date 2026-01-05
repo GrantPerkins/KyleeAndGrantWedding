@@ -13,12 +13,12 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people 
     // RSVP modal state
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [attending, setAttending] = useState<string | null>(null);
-    const [bringingPlusOne, setBringingPlusOne] = useState<string | null>(null);
     const [peopleAttending, setPeopleAttending] = useState<string[]>([]);
+    const [plusOneName, setPlusOneName] = useState<string>("");
 
     useEffect(() => {
         if (attending === "yes" && people.length > 1) {
-            setPeopleAttending([...people]); // default all selected
+            setPeopleAttending([...people]);
         } else if (people.length === 1) {
             setPeopleAttending([]);
         }
@@ -68,13 +68,16 @@ END:VCALENDAR
         let message = `RSVP for Kylee and Grant's Wedding:\nAttending: ${attending}`;
 
         if (attending === "yes") {
-            message += `\Attending: ${peopleAttending.join(", ")}`;
+            if (peopleAttending.length > 0) {
+                message += `\nAttending Guests: ${peopleAttending.join(", ")}`;
+            }
+
+            if (plusOne) {
+                message += `\nPlus one: ${plusOneName.trim() || "Not bringing a plus one"}`;
+            }
         }
 
-        if (attending === "yes" && plusOne) {
-            message += `\nBringing a plus one: ${bringingPlusOne}`;
-        }
-        message += `\nInvitation: ${url}`
+        message += `\nInvitation: ${url}`;
 
         const phoneNumber = "+17742758907"; // dummy number
         const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
@@ -108,19 +111,56 @@ END:VCALENDAR
         greeting: { fontSize: "1.8rem", color: "#3e6146", lineHeight: 1.4, fontWeight: 600 },
         sectionHeading: { fontSize: "1.5rem", color: "#3e6146", marginTop: "1rem", marginBottom: "0.5rem", fontWeight: 600 },
         text: { fontSize: "1.15rem", color: "#333", margin: "0.5rem 0", lineHeight: 1.5 },
-        button: { display: "inline-block", marginTop: "2rem", padding: "1rem 2.5rem", fontSize: "1.3rem", fontWeight: "bold", color: "white", backgroundColor: "#3e6146", border: "none", borderRadius: "50px", textDecoration: "none", cursor: "pointer", transition: "background-color 0.3s ease", alignSelf: "center" as const },
-        buttonHover: { backgroundColor: "#4d7b7b" },
+        button: {
+            display: "inline-block",
+            marginTop: "2rem",
+            padding: "1rem 2.5rem",
+            fontSize: "1.3rem",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "#3e6146",
+            border: "none",
+            borderRadius: "50px",
+            cursor: "pointer",
+            alignSelf: "center" as const,
+        },
         link: { color: "#3e6146", textDecoration: "underline" },
-        modalOverlay: { position: "fixed" as const, top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0,0,0,0.5)", display: "flex", justifyContent: "center", alignItems: "center", zIndex: 999 },
-        modalContent: { backgroundColor: "white", padding: "2rem", borderRadius: "15px", maxWidth: "400px", width: "90%", textAlign: "center" as const, display: "flex", flexDirection: "column" as const, gap: "1rem" },
-        optionButton: { padding: "0.75rem 1.5rem", borderRadius: "50px", border: "1px solid #3e6146", cursor: "pointer", fontWeight: 600 },
-        optionButtonSelected: { backgroundColor: "#3e6146", color: "white" },
-        modalHeading: {
-            fontSize: "1.2rem",
+        modalOverlay: {
+            position: "fixed" as const,
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(0,0,0,0.5)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 999,
+        },
+        modalContent: {
+            backgroundColor: "white",
+            padding: "2rem",
+            borderRadius: "15px",
+            maxWidth: "400px",
+            width: "90%",
+            textAlign: "center" as const,
+            display: "flex",
+            flexDirection: "column" as const,
+            gap: "1rem",
+        },
+        optionButton: {
+            padding: "0.75rem 1.5rem",
+            borderRadius: "50px",
+            border: "1px solid #3e6146",
+            cursor: "pointer",
             fontWeight: 600,
-            color: "#3e6146",
-            marginBottom: "0.5rem",
-            lineHeight: 1.4,
+        },
+        optionButtonSelected: { backgroundColor: "#3e6146", color: "white" },
+        input: {
+            padding: "0.75rem 1rem",
+            borderRadius: "8px",
+            border: "1px solid #ccc",
+            fontSize: "1rem",
         },
     };
 
@@ -128,13 +168,19 @@ END:VCALENDAR
         <section ref={ref} style={styles.container}>
             <div style={styles.card}>
                 <p style={styles.greeting}>
-                    {names},<br/><br/> Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
+                    {names},<br /><br />
+                    Kylee Rutkiewicz and Grant Perkins {plusOne ? "would love for you and your guest" : "would love for you"} to attend our wedding.
                 </p>
 
                 <p style={styles.text}><b>Date:</b> April 11, 2026</p>
                 <p style={styles.text}>
                     <b>Location:</b>{" "}
-                    <a href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566" style={styles.link} target="_blank" rel="noopener noreferrer">
+                    <a
+                        href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566"
+                        style={styles.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
@@ -149,21 +195,24 @@ END:VCALENDAR
                 <a
                     href={createICSFile()}
                     download="Kylee_Grant_Wedding.ics"
-                    style={{ ...styles.button, marginTop: "1rem"}}
+                    style={{
+                        ...styles.button,
+                        marginTop: "1rem",
+                        textDecoration: "none",
+                        fontWeight: "bold",
+                    }}
                 >
                     Add to Calendar
                 </a>
+
             </div>
 
-            {/* RSVP Modal */}
             {isModalOpen && (
                 <div style={styles.modalOverlay}>
                     <div style={styles.modalContent}>
-                        <h3 style={styles.modalHeading}>
-                            {people.length === 1 ? "Will you be attending?" : "Will any of you be attending?"}
-                        </h3>
+                        <h3>{people.length === 1 ? "Will you be attending?" : "Will any of you be attending?"}</h3>
 
-                        <div style={{ display: "flex", justifyContent: "center", gap: "1rem", flexWrap: "wrap" }}>
+                        <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
                             {["yes", "no"].map((option) => (
                                 <button
                                     key={option}
@@ -174,8 +223,8 @@ END:VCALENDAR
                                     onClick={() => {
                                         setAttending(option);
                                         if (option === "no") {
-                                            setBringingPlusOne(null);
                                             setPeopleAttending([]);
+                                            setPlusOneName("");
                                         }
                                     }}
                                 >
@@ -184,62 +233,51 @@ END:VCALENDAR
                             ))}
                         </div>
 
-                        {/* Per-person checkbox selection if more than 1 person */}
                         {attending === "yes" && people.length > 1 && (
                             <>
-                                <h3 style={styles.modalHeading}>Who will be attending?</h3>
-                                <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "0.5rem", maxHeight: "200px", overflowY: "auto", margin: "0 auto" }}>
-                                    {people.map((person) => (
-                                        <label key={person} style={{ fontSize: "1rem", display: "flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
-                                            <input
-                                                type="checkbox"
-                                                checked={peopleAttending.includes(person)}
-                                                onChange={() => {
-                                                    if (peopleAttending.includes(person)) {
-                                                        setPeopleAttending(peopleAttending.filter((p) => p !== person));
-                                                    } else {
-                                                        setPeopleAttending([...peopleAttending, person]);
-                                                    }
-                                                }}
-                                            />
-                                            {person}
-                                        </label>
-                                    ))}
-                                </div>
+                                <h3>Who will be attending?</h3>
+                                {people.map((person) => (
+                                    <label key={person}>
+                                        <input
+                                            type="checkbox"
+                                            checked={peopleAttending.includes(person)}
+                                            onChange={() =>
+                                                setPeopleAttending((prev) =>
+                                                    prev.includes(person)
+                                                        ? prev.filter((p) => p !== person)
+                                                        : [...prev, person]
+                                                )
+                                            }
+                                        />{" "}
+                                        {person}
+                                    </label>
+                                ))}
                             </>
                         )}
 
-                        {/* Plus-one question */}
                         {attending === "yes" && plusOne && (
                             <>
-                                <h3 style={styles.modalHeading}>Will you be bringing a plus one?</h3>
-                                <div style={{ display: "flex", justifyContent: "center", gap: "1rem" }}>
-                                    {["yes", "no"].map((option) => (
-                                        <button
-                                            key={option}
-                                            style={{
-                                                ...styles.optionButton,
-                                                ...(bringingPlusOne === option ? styles.optionButtonSelected : {}),
-                                            }}
-                                            onClick={() => setBringingPlusOne(option)}
-                                        >
-                                            {option.charAt(0).toUpperCase() + option.slice(1)}
-                                        </button>
-                                    ))}
-                                </div>
+                                <h3>Plus one name (leave blank if none)</h3>
+                                <input
+                                    style={styles.input}
+                                    type="text"
+                                    placeholder="Guest's full name"
+                                    value={plusOneName}
+                                    onChange={(e) => setPlusOneName(e.target.value)}
+                                />
                             </>
                         )}
 
                         <button
-                            style={{ ...styles.button, marginTop: "1.5rem" }}
-                            disabled={attending === null || (attending === "yes" && plusOne && bringingPlusOne === null)}
+                            style={styles.button}
+                            disabled={attending === null}
                             onClick={handleRSVPSubmit}
                         >
                             Next
                         </button>
 
                         <button
-                            style={{ ...styles.button, backgroundColor: "#ccc", color: "#333", marginTop: "0.5rem" }}
+                            style={{ ...styles.button, backgroundColor: "#ccc", color: "#333" }}
                             onClick={() => setIsModalOpen(false)}
                         >
                             Cancel

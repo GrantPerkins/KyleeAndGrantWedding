@@ -176,6 +176,7 @@ END:VCALENDAR
             >
               Sturbridge, MA
             </a>
+            <p style={styles.dateLocation}>Formal Invitation to Follow</p>
             <button
               style={styles.button}
               onClick={handleDownload}
@@ -201,6 +202,7 @@ END:VCALENDAR
               >
                 Sturbridge, MA
               </a>
+              <p style={styles.dateLocation}>Formal Invitation to Follow</p>
             </p>
             <button
               style={styles.button}
