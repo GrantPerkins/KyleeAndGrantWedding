@@ -189,6 +189,17 @@ END:VCALENDAR
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
+                <p style={styles.text}>
+                    <b>Wedding Registry: </b>{" "}
+                    <a
+                        href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566"
+                        style={styles.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        CLICK HERE
+                    </a>
+                </p>
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
                 <p style={styles.text}><b>Dress Code:</b> Cocktail Attire</p>
                 <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
