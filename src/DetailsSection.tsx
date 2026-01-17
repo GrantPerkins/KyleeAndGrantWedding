@@ -192,12 +192,12 @@ END:VCALENDAR
                 <p style={styles.text}>
                     <b>Wedding Registry: </b>{" "}
                     <a
-                        href="https://www.google.com/maps/dir//420+Main+St,+Sturbridge,+MA+01566"
+                        href="https://www.zola.com/registry/grantandkylee2026"
                         style={styles.link}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        CLICK HERE
+                        CLICK HERE (thank you)
                     </a>
                 </p>
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
@@ -205,7 +205,7 @@ END:VCALENDAR
                 <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
 
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
-                    RSVP Now
+                    RSVP By Clicking Here
                 </button>
 
                 <a
