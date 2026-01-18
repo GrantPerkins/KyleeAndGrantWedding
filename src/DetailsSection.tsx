@@ -197,11 +197,11 @@ END:VCALENDAR
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        CLICK HERE (thank you)
+                        Click here
                     </a>
                 </p>
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
-                <p style={styles.text}><b>Dress Code:</b> Cocktail Attire</p>
+                <p style={styles.text}><b>Dress:</b> Cocktail Attire</p>
                 <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
 
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
