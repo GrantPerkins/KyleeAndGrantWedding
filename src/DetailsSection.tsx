@@ -189,6 +189,10 @@ END:VCALENDAR
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
+                
+                <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
+                <p style={styles.text}><b>Dress:</b> Cocktail Attire</p>
+                <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
                 <p style={styles.text}>
                     <b>Wedding Registry: </b>{" "}
                     <a
@@ -200,9 +204,6 @@ END:VCALENDAR
                         Click here
                     </a>
                 </p>
-                <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
-                <p style={styles.text}><b>Dress:</b> Cocktail Attire</p>
-                <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
 
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
                     RSVP By Clicking Here
