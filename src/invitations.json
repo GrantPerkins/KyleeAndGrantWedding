@@ -18,12 +18,6 @@
     "plusOne": false
   },
   {
-    "uuid": "3095",
-    "names": "Natalie Rutkiewicz",
-    "people": ["Natalie Rutkiewicz"],
-    "plusOne": false
-  },
-  {
     "uuid": "4974",
     "names": "Julia Ferranto",
     "people": ["Julia Ferranto"],
@@ -57,7 +51,7 @@
     "uuid": "1203",
     "names": "Niamh Reed-O'Connor",
     "people": ["Niamh Reed-O'Connor"],
-    "plusOne": true
+    "plusOne": false
   },
   {
     "uuid": "8403",
@@ -75,7 +69,7 @@
     "uuid": "5498",
     "names": "Connor West",
     "people": ["Connor West"],
-    "plusOne": true
+    "plusOne": false
   },
   {
     "uuid": "0302",
@@ -116,7 +110,7 @@
   {
     "uuid": "8493",
     "names": "Rutkiewicz and Brady Family",
-    "people": ["Stephen Rutkiewicz", "Jenn Brady", "Natalie Rutkiewicz", "Luke", "Rachel Rutkiewicz", "Aaron", "Vinny", "Frances"],
+    "people": ["Stephen Rutkiewicz", "Jenn Brady", "Natalie Rutkiewicz", "Luke Rutkiewicz", "Rachel Rutkiewicz", "Aaron Rutkiewicz", "Vinny Brady", "Frances Brady"],
     "plusOne": false
   },
   {
@@ -195,6 +189,6 @@
     "uuid": "7589",
     "names": "Greg Conrad",
     "people": ["Greg Conrad"],
-    "plusOne": false
+    "plusOne": true
   }
 ]
