@@ -193,21 +193,22 @@ END:VCALENDAR
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
                 <p style={styles.text}><b>Dress:</b> Cocktail Attire</p>
                 <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
-                <p style={styles.text}>
-                    <b>Wedding Registry: </b>{" "}
-                    <a
-                        href="https://www.zola.com/registry/grantandkylee2026"
-                        style={styles.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Click here
-                    </a>
-                </p>
 
                 <button style={styles.button} onClick={() => setIsModalOpen(true)}>
                     RSVP By Clicking Here
                 </button>
+
+                <a
+                    href={"https://www.zola.com/registry/grantandkylee2026"}
+                    style={{
+                        ...styles.button,
+                        marginTop: "1rem",
+                        textDecoration: "none",
+                        fontWeight: "bold",
+                    }}
+                >
+                    Wedding Registry
+                </a>
 
                 <a
                     href={createICSFile()}
@@ -221,7 +222,6 @@ END:VCALENDAR
                 >
                     Add to Calendar
                 </a>
-
             </div>
 
             {isModalOpen && (
