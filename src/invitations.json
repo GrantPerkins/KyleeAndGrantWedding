@@ -27,13 +27,13 @@
     "uuid": "8904",
     "names": "Sarah Carroll",
     "people": ["Sarah Carroll"],
-    "plusOne": false
+    "plusOne": true
   },
   {
     "uuid": "5187",
-    "names": "Sarah Plutnicki",
-    "people": ["Sarah Plutnicki"],
-    "plusOne": true
+    "names": "Sarah Plutnicki and Jakob Drozd",
+    "people": ["Sarah Plutnicki", "Jakob Drozd"],
+    "plusOne": false
   },
   {
     "uuid": "7801",
@@ -133,8 +133,8 @@
   },
   {
     "uuid": "8942",
-    "names": "Andrew Juchno",
-    "people": ["Andrew Juchno"],
+    "names": "Andrew Juchno and Vicky Xu",
+    "people": ["Andrew Juchno", "Vicky Xu"],
     "plusOne": true
   },
   {
