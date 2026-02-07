@@ -6,8 +6,13 @@ interface DetailsSectionProps {
     people: string[];
 }
 
+const FORMSUBMIT_ENDPOINT = "https://formsubmit.co/gcperk20@gmail.com";
+const THANK_YOU_URL = "https://yourdomain.com/thanks.html";
+
 const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const formRef = useRef<HTMLFormElement>(null);
+
     const [visible, setVisible] = useState(false);
 
     // RSVP modal state
@@ -15,6 +20,17 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people 
     const [attending, setAttending] = useState<string | null>(null);
     const [peopleAttending, setPeopleAttending] = useState<string[]>([]);
     const [plusOneName, setPlusOneName] = useState<string>("");
+
+    const url = window.location.href;
+
+    /* -----------------------------
+       Device detection
+    ----------------------------- */
+    const isMobile = () =>
+        typeof window !== "undefined" &&
+        (window.innerWidth < 768 ||
+            navigator.maxTouchPoints > 0 ||
+            "ontouchstart" in window);
 
     useEffect(() => {
         if (attending === "yes" && people.length > 1) {
@@ -24,11 +40,9 @@ const DetailsSection: React.FC<DetailsSectionProps> = ({ names, plusOne, people 
         }
     }, [attending, people]);
 
-    const url = window.location.href;
-
     const createICSFile = () => {
-        const startDate = "20260411T170000"; // 5:00 PM ET
-        const endDate = "20260411T210000";   // 9:00 PM ET
+        const startDate = "20260411T170000";
+        const endDate = "20260411T210000";
         const title = "Wedding of Kylee Rutkiewicz and Grant Perkins";
         const location = "The Barn at Wight Farm, 420 Main St, Sturbridge, MA 01566";
         const description = `Join us for the wedding ceremony and reception!\n\nInvitation for your reference: ${url}`;
@@ -69,10 +83,8 @@ END:VCALENDAR
 
         if (attending === "yes") {
             if (people.length === 1) {
-                // Single-person invite
                 message += `\nAttending Guest: ${people[0]}`;
             } else if (peopleAttending.length > 0) {
-                // Multi-person invite
                 message += `\nAttending Guests: ${peopleAttending.join(", ")}`;
             }
 
@@ -81,12 +93,18 @@ END:VCALENDAR
             }
         }
 
-
         message += `\nInvitation: ${url}`;
 
-        const phoneNumber = "+17742758907"; // dummy number
-        const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
-        window.location.href = smsLink;
+        // 📱 MOBILE → SMS (unchanged)
+        if (isMobile()) {
+            const phoneNumber = "+17742758907";
+            const smsLink = `sms:${phoneNumber}?body=${encodeURIComponent(message)}`;
+            window.location.href = smsLink;
+            return;
+        }
+
+        // 🖥 DESKTOP → FormSubmit
+        formRef.current?.submit();
     };
 
     const styles = {
@@ -189,7 +207,7 @@ END:VCALENDAR
                         The Barn at Wight Farm, Sturbridge, MA
                     </a>
                 </p>
-                
+
                 <p style={styles.text}><b>Time:</b> 5:00 PM Ceremony, Reception to Follow</p>
                 <p style={styles.text}><b>Dress:</b> Cocktail Attire</p>
                 <p style={styles.text}><b>Food:</b> Buffet Dinner</p>
@@ -199,13 +217,8 @@ END:VCALENDAR
                 </button>
 
                 <a
-                    href={"https://www.zola.com/registry/grantandkylee2026"}
-                    style={{
-                        ...styles.button,
-                        marginTop: "1rem",
-                        textDecoration: "none",
-                        fontWeight: "bold",
-                    }}
+                    href="https://www.zola.com/registry/grantandkylee2026"
+                    style={{ ...styles.button, marginTop: "1rem", textDecoration: "none" }}
                 >
                     Wedding Registry
                 </a>
@@ -213,16 +226,43 @@ END:VCALENDAR
                 <a
                     href={createICSFile()}
                     download="Kylee_Grant_Wedding.ics"
-                    style={{
-                        ...styles.button,
-                        marginTop: "1rem",
-                        textDecoration: "none",
-                        fontWeight: "bold",
-                    }}
+                    style={{ ...styles.button, marginTop: "1rem", textDecoration: "none" }}
                 >
                     Add to Calendar
                 </a>
             </div>
+
+            {/* Hidden FormSubmit form (desktop only) */}
+            <form
+                ref={formRef}
+                action={FORMSUBMIT_ENDPOINT}
+                method="POST"
+                style={{ display: "none" }}
+            >
+                <input type="hidden" name="_subject" value="Wedding RSVP" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="text" name="_honey" style={{ display: "none" }} />
+
+                <input type="hidden" name="Attending" value={attending ?? ""} />
+                <input
+                    type="hidden"
+                    name="Guests"
+                    value={
+                        attending === "yes"
+                            ? people.length === 1
+                                ? people[0]
+                                : peopleAttending.join(", ")
+                            : ""
+                    }
+                />
+                <input
+                    type="hidden"
+                    name="Plus One"
+                    value={plusOne ? plusOneName || "None" : "N/A"}
+                />
+                <input type="hidden" name="Invitation URL" value={url} />
+            </form>
 
             {isModalOpen && (
                 <div style={styles.modalOverlay}>
